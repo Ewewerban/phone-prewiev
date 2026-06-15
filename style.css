@@ -1,0 +1,132 @@
+:root {
+    --bg-color: #0f172a;
+    --phone-border: #334155;
+    --phone-bg: #000000;
+    --bar-bg: #1e293b;
+    --text-color: #f8fafc;
+    --accent-color: #3b82f6;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Panel kontrolny (pasek adresu) */
+.control-panel {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 25px;
+    display: flex;
+    gap: 10px;
+    background: var(--bar-bg);
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.url-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #475569;
+    border-radius: 8px;
+    background: #0f172a;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.url-input:focus {
+    border-color: var(--accent-color);
+}
+
+.load-btn {
+    padding: 12px 20px;
+    background: var(--accent-color);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.load-btn:hover {
+    background: #2563eb;
+}
+
+/* Makieta telefonu */
+.phone-container {
+    position: relative;
+    width: 375px; /* Standardowa szerokość iPhone X/12/13 itp. */
+    height: 812px; /* Standardowa wysokość */
+    border: 12px solid var(--phone-border);
+    border-radius: 45px;
+    background: var(--phone-bg);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Głośnik / Notch na górze telefonu */
+.phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 25px;
+    background: var(--phone-border);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    z-index: 10;
+}
+
+/* Pasek statusu w telefonie */
+.phone-status-bar {
+    height: 30px;
+    background: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    font-size: 12px;
+    font-weight: 500;
+    user-select: none;
+}
+
+/* Ramka iframe z podglądem strony */
+.preview-iframe {
+    width: 100%;
+    flex: 1;
+    border: none;
+    background: #ffffff;
+}
+
+/* Informacja początkowa */
+.placeholder-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+    width: 80%;
+    pointer-events: none;
+}
