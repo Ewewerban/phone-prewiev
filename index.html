@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podgląd Mobilny Live</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="control-panel">
+        <input type="text" id="urlInput" class="url-input" placeholder="Wpisz adres URL np. https://wikipedia.org" value="https://example.com">
+        <button onclick="loadPage()" class="load-btn">Zobacz</button>
+    </div>
+
+    <div class="phone-container">
+        <div class="phone-notch"></div>
+        <div class="phone-status-bar">
+            <span>09:41</span>
+            <span>🔋 100%</span>
+        </div>
+        
+        <div id="placeholder" class="placeholder-message">
+            Wpisz adres URL powyżej i kliknij "Zobacz", aby załadować podgląd strony.
+        </div>
+        
+        <iframe id="previewIframe" class="preview-iframe" src="https://example.com"></iframe>
+    </div>
+
+    <script>
+        function loadPage() {
+            const input = document.getElementById('urlInput').value.trim();
+            const iframe = document.getElementById('previewIframe');
+            const placeholder = document.getElementById('placeholder');
+            
+            if (!input) return;
+
+            let url = input;
+            // Automatyczne dodawanie http:// lub https:// jeśli użytkownik zapomni
+            if (!/^https?:\/\//i.test(url)) {
+                url = 'https://' + url;
+            }
+
+            // Ukryj komunikat pomocniczy po załadowaniu
+            placeholder.style.display = 'none';
+            // Zmień źródło iframe
+            iframe.src = url;
+        }
+
+        // Umożliwia zatwierdzenie klawiszem Enter
+        document.getElementById('urlInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                loadPage();
+            }
+        });
+    </script>
+
+</body>
+</html>
