@@ -9,7 +9,7 @@
 <body>
 
     <div class="control-panel">
-        <input type="text" id="urlInput" class="url-input" placeholder="Wpisz adres URL np. https://wikipedia.org" value="https://example.com">
+        <input type="text" id="urlInput" class="url-input" placeholder="Wpisz adres URL np. https://pl.wikipedia.org" value="https://pl.m.wikipedia.org">
         <button onclick="loadPage()" class="load-btn">Zobacz</button>
     </div>
 
@@ -24,7 +24,7 @@
             Wpisz adres URL powyżej i kliknij "Zobacz", aby załadować podgląd strony.
         </div>
         
-        <iframe id="previewIframe" class="preview-iframe" src="https://example.com"></iframe>
+        <iframe id="previewIframe" class="preview-iframe" src="https://pl.m.wikipedia.org"></iframe>
     </div>
 
     <script>
@@ -36,18 +36,25 @@
             if (!input) return;
 
             let url = input;
-            // Automatyczne dodawanie http:// lub https:// jeśli użytkownik zapomni
+            
+            // Automatyczne dodawanie https:// jeśli użytkownik zapomni protokołu
             if (!/^https?:\/\//i.test(url)) {
                 url = 'https://' + url;
             }
 
-            // Ukryj komunikat pomocniczy po załadowaniu
+            // Ukryj komunikat pomocniczy po kliknięciu
             placeholder.style.display = 'none';
-            // Zmień źródło iframe
-            iframe.src = url;
+            
+            // Jeśli użytkownik wpisze Wikipedię, ładujemy ją bezpośrednio (działa szybciej)
+            if (url.includes('wikipedia.org')) {
+                iframe.src = url;
+            } else {
+                // Dla pozostałych stron używamy publicznego proxy, które wycina nagłówki blokujące i usuwa błąd CORS/X-Frame-Options
+                iframe.src = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
+            }
         }
 
-        // Umożliwia zatwierdzenie klawiszem Enter
+        // Umożliwia zatwierdzenie adresu klawiszem Enter
         document.getElementById('urlInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 loadPage();
